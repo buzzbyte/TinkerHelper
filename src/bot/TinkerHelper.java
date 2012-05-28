@@ -106,7 +106,6 @@ public class TinkerHelper implements IRCEventListener {
 		} else if (type == Type.JOIN_COMPLETE) {
 			MessageEvent me = (MessageEvent) e;
 			channel = ((JoinCompleteEvent) e).getChannel();
-			me.getChannel().command("PRIVMSG nickserv identify mbg123");
 //			me.getChannel().command("PRIVMSG Buzzbyte Identified!");
 		// User joins channel
 		} else if (type == Type.JOIN) {
@@ -185,8 +184,6 @@ public class TinkerHelper implements IRCEventListener {
 						wiki(me);
 					else if (cmd.equals("saytn"))
 						saytn(me);
-//					else if (cmd.equals("group"))
-//						group(me);
 					else if (cmd.equals("tncycle"))
 						cycle(me);
 					else if (cmd.equals("cmd"))
@@ -676,11 +673,6 @@ public class TinkerHelper implements IRCEventListener {
 		String msg = me.getMessage().substring(7);
 		me.getSession().sayChannel(channel.getSession().getChannel(CHANNEL), msg);
 	}
-//	private void group(MessageEvent me) {
-//		me.getChannel().say("Please wait...");
-//		me.getChannel().command("PRIVMSG nickserv group Buzzbyte mbg123");
-//		me.getChannel().say("Success!");
-//	}
 	
 	private void cycle(MessageEvent me) {
 		me.getChannel().part("");
