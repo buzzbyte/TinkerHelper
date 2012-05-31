@@ -113,12 +113,14 @@ public class TinkerHelper implements IRCEventListener {
 			MessageEvent me = (MessageEvent) e;
 			System.out.println(je.getChannelName() + ": "+ je.getNick() + " has joined.");
 			String msg = me.getMessage().toLowerCase();
+			// Greeting system (currently disabled)
 //			if (greet = true) {
 //			je.getChannel().say(String.format(GREETINGS[new Random().nextInt(GREETINGS.length)], je.getNick()));
 //			} else if (greet = false) {
 				// Don't do anything!
 //				return;
 //			}
+				// gigafide messaging system
 				if (je.getNick().equals("gigafide")) {
 					je.getChannel().say("Gigafide!!! May I have your autograph?");
 					if (readcount == 0) {
@@ -148,6 +150,7 @@ public class TinkerHelper implements IRCEventListener {
 			if (isCommand(msg)) {
 				if (isAdmin(me.getNick())) {
 					String cmd = getCommand(msg);
+					// Command call
 					if (cmd.equals("help"))
 						cmdHelp(me);
 					else if (cmd.equals("kick"))
@@ -214,7 +217,6 @@ public class TinkerHelper implements IRCEventListener {
 				chatrules(me, user);
 				checkIdle(me);
 	//			fun(me);
-				gtgbrb(me, user);
 				greet(me);
 				msgs(me, user);
 			}
@@ -248,23 +250,7 @@ public class TinkerHelper implements IRCEventListener {
 	 * Help command
 	 */
 	private void cmdHelp(MessageEvent me) {
-//		me.getChannel().say("Command turned off (Reason: )");
-		me.getSession().notice("Buzzbyte", "List of commands:");
-		me.getSession().notice(me.getNick(), " ");
-		me.getSession().notice(me.getNick(), "+kick <nick> <reason> - Kicks a 'nick' with a 'reason'");
-		me.getSession().notice(me.getNick(), "+admins - Views a list of users who can control the bot");
-		me.getSession().notice(me.getNick(), "+add <nick> - Adds a 'nick' to control the bot");
-		me.getSession().notice(me.getNick(), "+rem <nick> - Removes a 'nick' from control the bot");
-		me.getSession().notice(me.getNick(), "+roll - Rolls a random number");
-		me.getSession().notice(me.getNick(), "+announcer <<time text>|'start'|'stop'> - Command used to announce a 'text' every 'time' | Starts announcer | Stops announcer");
-		me.getSession().notice(me.getNick(), "+say <text> - Makes the bot say 'text'");
-		me.getSession().notice(me.getNick(), "+chnick <new nick> - Makes the bot change its nick to a 'new nick'");
-		me.getSession().notice(me.getNick(), "+quit - Makes the bot quit");
-		me.getSession().notice(me.getNick(), "+act <text> - Makes the bot use action (the /me command) for the 'text'");
-		me.getSession().notice(me.getNick(), "+talent - Makes the bot show it's talent");
-		me.getSession().notice(me.getNick(), "+askgig - Coming Soon!");
-		me.getSession().notice(me.getNick(), " ");
-		me.getSession().notice(me.getNick(), "== End of CMD help ==");
+		me.getChannel().say("Help page is found at: http://www.tinkernut.com/wiki/page/TinkerHelper");
 	}
 	
 	/**
@@ -473,6 +459,7 @@ public class TinkerHelper implements IRCEventListener {
 	//}
 	
 	private void chatrules(MessageEvent me, User user) {
+		// Dispalys tinkernut chat rules
 		String msg = me.getMessage().toLowerCase();
 		
 			if (msg.contains("chat rules")) {
@@ -481,12 +468,14 @@ public class TinkerHelper implements IRCEventListener {
 	}
 	
 	private void cmdsay(MessageEvent me) {
+		//says something in channel
 		String msg = me.getMessage();
 		String msg2 = msg.replace("+say ", "");
 				me.getChannel().say(msg2);
 	}
 	
 	private void cmdsaypriv(MessageEvent me, User user, IRCEvent e) {
+		// Doesn't work yet
 //		String msg = me.getMessage();
 //		String msg2 = msg.replace("+saypriv ", "");
 //		String nick = me.getMessage().substring(0);
@@ -495,6 +484,7 @@ public class TinkerHelper implements IRCEventListener {
 	}
 	
 	private void cmdchnick(MessageEvent me) {
+		// Changes nick
 		String msg = me.getMessage().substring(8);
 		me.getSession().changeNick(msg);
 	}
@@ -543,6 +533,7 @@ public class TinkerHelper implements IRCEventListener {
 	}
 	
 	private void fun(MessageEvent me) {
+		// fun commands
 		String msg = me.getMessage();
 		String person = me.getMessage().substring(18);
 		if (fun_on = true) {
@@ -568,36 +559,16 @@ public class TinkerHelper implements IRCEventListener {
 		}
 	}
 	private void fun_on(MessageEvent me) {
+		// doesn't have an effect
 			fun_on = true;
 			me.getChannel().say("Fun commands are now on!");
 	}
 	private void fun_off(MessageEvent me) {
+		// doesn't have an effect
 			fun_on = false;
 			me.getChannel().say("Fun commands are now off!");
 	}
-	private void gtgbrb(MessageEvent me, User user) {
-		String msg = me.getMessage().toLowerCase();
-//		if (msg.contains("brb")) {
-//			me.getChannel().say("See you when you're back!");
-//		}
-//		if (msg.contains("gtg")) {
-//			me.getChannel().say("See you later, alligator!");
-//		}
-//		if (msg.equals("back")) {
-//			me.getChannel().say("Welcome back!");
-//		}
-//		if (msg.equals("back!")) {
-//			me.getChannel().say("Welcome back!");
-//		}
-//		if (msg.equals("back!!")) {
-//			me.getChannel().say("Welcome back!");
-//		}
-//		if (msg.equals("back!!!")) {
-//			me.getChannel().say("Welcome back!");
-//		}
-//		if (msg.contains("bye")) {
-//			me.getChannel().say("Goodbye!");
-//		}
+
 		
 	}
 	private void greet(MessageEvent me) {
@@ -671,12 +642,12 @@ public class TinkerHelper implements IRCEventListener {
 	}
 	private void saytn(MessageEvent me) {
 		String msg = me.getMessage().substring(7);
-		me.getSession().sayChannel(channel.getSession().getChannel(CHANNEL), msg);
+		me.getSession().sayChannel(me.getSession().getChannel(CHANNEL), msg);
 	}
 	
 	private void cycle(MessageEvent me) {
 		me.getChannel().part("");
-		me.getSession().join("#tinkernut");
+		me.getSession().join(CHANNEL);
 	}
 	private void scmd(MessageEvent me) {
 		String msg = me.getMessage().substring(5);
@@ -704,12 +675,26 @@ public class TinkerHelper implements IRCEventListener {
 		    String search = googlesearch;
 		    String charset = "UTF-8";
 
-	//	    URL url = new URL(google + URLEncoder.encode(search, charset));
-//		    Reader reader = new InputStreamReader(url.openStream(), charset);
-//		    GoogleResults results = new Gson().fromJson(reader, GoogleResults.class);
+		    URL url;
+		    Reader reader;
+			try {
+				url = new URL(google + URLEncoder.encode(search, charset));
+				reader = new InputStreamReader(url.openStream(), charset);
+				GoogleResults results = new Gson().fromJson(reader, GoogleResults.class);
+				
+				// Show title and URL of 1st result.
+				String str = results.getResponseData().getResults().get(0).getTitle() + " - " + results.getResponseData().getResults().get(0).getUrl();
+				String str2 = str.replace("<b>", "");
+				String searchresult = str2.replace("</b>", "");
+				me.getChannel().say(searchresult);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
 
-		    // Show title and URL of 1st result.
-		//    me.getChannel().say(results.getResponseData().getResults().get(0).getTitle() + " - " + results.getResponseData().getResults().get(0).getUrl());
+		    
+
 		}
 	}
 	//==========================================================================
