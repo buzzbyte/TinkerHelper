@@ -11,7 +11,7 @@ See it in action!
 Sometimes I bring this IRC bot in an IRC channel to test it. You can also come and see what it does if you would like.
 
 <b>IRC info:</b>
-'''
+```
 Server: irc.geekshed.net
 Channel: #THBot
-'''
+```
