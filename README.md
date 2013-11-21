@@ -5,6 +5,7 @@ TinkerHelper (THBot for short) is an IRC bot that was made with JerkLib IRC libr
 
 <b>This bot is currently under development.</b>
 
+<!--
 See it in action!
 -----------------
 
@@ -15,3 +16,4 @@ Sometimes I bring this IRC bot in an IRC channel to test it. You can also come a
 Server: irc.geekshed.net
 Channel: #THBot
 ```
+-->
